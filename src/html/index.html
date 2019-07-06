@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>jao Blocks Counter</title>
+        <style>
+            html {
+                font-family: 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', 'Meiryo', 'メイリオ', 'Meiryo UI', '游ゴシック', 'Yu Gothic', sans-serif;
+                -ms-text-size-adjust: 100%;
+                -webkit-text-size-adjust: 100%;
+                text-size-adjust: 100%;
+                font-size: 14px;
+            }
+
+            body {
+                width: 100%;
+                margin: 0;
+                position: relative;
+            }
+
+            article,
+            aside,
+            footer,
+            header,
+            main,
+            nav,
+            section,
+            p {
+                margin: 0;
+                padding: 0;
+                display: block;
+                box-sizing: border-box;
+            }
+
+            img {
+                vertical-align: bottom;
+            }
+        </style>
+        <link rel="stylesheet" href="../css/main.css" />
+    </head>
+
+    <body>
+        <header id="header">
+            <h1><img src="../img/jao-cc.svg" alt="Blocks Counter" /></h1>
+        </header>
+        <main>
+            <div id="alert">
+                <div class="alert alert-red" hidden>アラート</div>
+                <div class="alert alert-green" hidden>アラート</div>
+                <div class="alert alert-yellow" hidden>アラート</div>
+            </div>
+            <div id="inputField" class="row">
+                <form id="blocksCounter">
+                    <div class="points">
+                        <input class="point xPoint" type="number" placeholder="x" /><input class="point zPoint"
+                            type="number" placeholder="z" />
+                    </div>
+                    <div class="points">
+                        <input class="point xPoint" type="number" placeholder="x" /><input class="point zPoint"
+                            type="number" placeholder="z" />
+                    </div>
+                    <div class="points">
+                        <input class="point xPoint" type="number" placeholder="x" /><input class="point zPoint"
+                            type="number" placeholder="z" />
+                    </div>
+                    <div class="points">
+                        <input class="point xPoint" type="number" placeholder="x" /><input class="point zPoint"
+                            type="number" placeholder="z" />
+                    </div>
+                    <button id="addPoint" type="button">座標欄を追加する</button>
+                    <button id="calcBlocks" type="button">ブロック数を計算する</button>
+                    <button id="reset" type="button">リセット</button>
+
+                </form>
+                <div id="requestText">
+                    <h2>申請内容パーサー</h2>
+                    <p>申請内容をコピペすると自動的にパースします。(実験的機能)</p>
+                    <textarea id="requestTextArea"></textarea>
+                    <span id="requestTextAreaMessage">申請内容をそのままコピペしてください。</span>
+                </div>
+            </div>
+            <div id="blocks">0 Blocks</div>
+            <div id="blocksMessage">範囲情報を入力してください。</div>
+        </main>
+        <script src="../js/main.js"></script>
+        <script src="../js/requestParser.js"></script>
+    </body>
+
+</html>

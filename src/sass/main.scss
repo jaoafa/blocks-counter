@@ -1,0 +1,108 @@
+@charset "utf-8";
+
+/* (c) 2018 Hiratake */
+
+$mainColor: #ffb41e;
+
+body {
+    background: #f5f5f5;
+}
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* -^------------------^-
+ * Alert
+ * ---------------------- */
+.alert {
+    width: 100%;
+    margin-bottom: 24px;
+    padding: 8px 16px;
+    box-sizing: border-box;
+
+    color: #fff;
+    border: solid 1px transparent;
+    border-radius: 3px;
+    font-size: 14px;
+    line-height: 24px;
+    &-red {
+        $alertColor: #d14141;
+        background: $alertColor;
+        border: solid 1px ($alertColor - 20);
+    }
+    &-green {
+        $alertColor: #5eb856;
+        background: $alertColor;
+        border: solid 1px ($alertColor - 20);
+    }
+    &-yellow {
+        $alertColor: #e2ba37;
+        background: $alertColor;
+        border: solid 1px ($alertColor - 20);
+    }
+}
+
+/* -^------------------^-
+ * Header
+ * ---------------------- */
+#header {
+    width: 100%;
+    height: 64px;
+    padding: 0 16px;
+    position: relative;
+
+    background: #fff;
+    &::after {
+        content: "";
+        width: 100%;
+        height: 8px;
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        background: linear-gradient(45deg, #c72a48, ($mainColor - 35) 30%, ($mainColor + 50) 70%, #e5ff91);
+    }
+    h1 {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 8px 0;
+        box-sizing: border-box;
+        img {
+            height: 40px;
+        }
+    }
+}
+
+/* -^------------------^-
+ * Main
+ * ---------------------- */
+main {
+    width: 100%;
+    max-width: (1200px + (16px * 2));
+    margin: 0 auto;
+    padding: 24px 16px;
+
+    background: #f5f5f5;
+    #inputField {
+        width: 100%;
+        margin: 0 auto;
+    }
+}
+
+button {
+    margin: 8px 0;
+    display: block;
+}
+.point {
+    margin-right: 8px;
+}
+
+#requestTextArea {
+  min-height: 200px; /* 高さ調整入れてください */
+  resize: vertical;
+  width: 100%;
+  border: 4px gray ridge;
+}
