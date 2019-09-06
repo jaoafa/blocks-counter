@@ -44,12 +44,15 @@
         result.innerText = blocks + " Blocks";
 
         var blocksmsg = document.getElementById('blocksMessage');
-        if (blocks >= 1024) {
-            result.style.color = "red";
-            blocksmsg.innerHTML = "初期規定チャンク数(1024チャンク)以上です。新規登録の場合は「規定ブロック数を超える明確な理由」が必要です。";
-        } else if (Math.round(blocks) !== blocks) {
+        if (Math.round(blocks) !== blocks) {
             result.style.color = "orange";
-            blocksmsg.innerHTML = "チャンク数が不適切(整数でない)です。範囲が正確に指定されていない可能性があります。";
+            blocksmsg.innerHTML = "ブロック数が不適切(整数でない)です。範囲が正確に指定されていない可能性があります。";
+        } else if (blocks >= 2500000) {
+            result.style.color = "red";
+            blocksmsg.innerHTML = "拡張最大制限ブロック数(2,500,000ブロック)以上です。";
+        } else if (blocks >= 250000) {
+            result.style.color = "tomato";
+            blocksmsg.innerHTML = "初期規定ブロック数(250,000ブロック)以上です。新規登録の場合は「規定ブロック数を超える明確な理由」が必要です。";
         } else if (Math.round(blocks) == 0) {
             result.style.color = "none";
             blocksmsg.innerHTML = "範囲情報を入力してください。";
@@ -83,14 +86,14 @@
      * @return  {number}  ブロック数
      */
     function calcBlockNumber(points) {
-        let size = 0;       // 面積
-        let side = 0;       // 辺の長さ
-        let blocks = 0;     // ブロック数
+        let size = 0; // 面積
+        let side = 0; // 辺の長さ
+        let blocks = 0; // ブロック数
 
-        let x1 = 0;         // 1点目のX座標値
-        let x2 = 0;         // 2点目のX座標値
-        let z1 = 0;         // 1点目のZ座標値
-        let z2 = 0;         // 2点目のZ座標値
+        let x1 = 0; // 1点目のX座標値
+        let x2 = 0; // 2点目のX座標値
+        let z1 = 0; // 1点目のZ座標値
+        let z2 = 0; // 2点目のZ座標値
 
         /* 図形の面積を計算 */
         for (let i = 0; i < points.x.length; i++) {
@@ -114,13 +117,13 @@
         /* 図形の辺の長さを計算 */
         for (let i = 0; i < points.x.length; i++) {
             if ((i + 1) >= points.x.length) {
-                side = side
-                    + Math.abs(points.x[i] - points.x[0])
-                    + Math.abs(points.z[i] - points.z[0]);
+                side = side +
+                    Math.abs(points.x[i] - points.x[0]) +
+                    Math.abs(points.z[i] - points.z[0]);
             } else {
-                side = side
-                    + Math.abs(points.x[i] - points.x[i + 1])
-                    + Math.abs(points.z[i] - points.z[i + 1]);
+                side = side +
+                    Math.abs(points.x[i] - points.x[i + 1]) +
+                    Math.abs(points.z[i] - points.z[i + 1]);
             }
         }
 
