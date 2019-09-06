@@ -1,21 +1,21 @@
-(function() {
+(function () {
     'use strict';
 
     // パース正規表現定義
-    var Reg = /#([0-9]+) *(\-?[0-9]+) *(\-?[0-9]+)/;
+    var Reg = /#([0-9]+) \D*?(\-?[0-9]+) \D*?(\-?[0-9]+)/;
 
     // テキスト入力
     // もっと効率化できると思う
     var requestTextArea = document.getElementById('requestTextArea');
-    requestTextArea.addEventListener('input', function() {
+    requestTextArea.addEventListener('input', function () {
         var requestText = document.getElementById("requestTextArea");
-        
+
         if (requestText.value == "") {
             // からっぽ
             requestTextArea.style.borderColor = "gray";
             document.getElementById("requestTextAreaMessage").innerHTML = "申請内容をそのままコピペしてください。";
             return;
-        }else if (!requestText.value.match(Reg)) {
+        } else if (!requestText.value.match(Reg)) {
             // マッチしない→パースできない
             requestTextArea.style.borderColor = "red";
             document.getElementById("requestTextAreaMessage").innerHTML = "範囲の情報が見つかりません。";
@@ -26,20 +26,20 @@
 
         /* 現存する入力欄をすべて消す。動作はするもののnull導入するだけなので気に入らない */
         var points = document.getElementsByClassName("points");
-        for ( let i = 0; i < points.length; i++) {
+        for (let i = 0; i < points.length; i++) {
             points[i].innerHTML = null;
         }
 
         var count = 0;
-        reqs.forEach( function( value ) {
+        reqs.forEach(function (value) {
             var result = Reg.exec(value);
-            if(result == null){
+            if (result == null) {
                 return;
             }
             var keynum = result[1]; // ex. #1
             var X = result[2]; // ex. -640
             var Z = result[3]; // ex. 655
-            
+
             var addPoint = document.getElementById('addPoint');
             let form = document.getElementById('blocksCounter');
             let div = document.createElement('div');
