@@ -54,10 +54,10 @@
             result.style.color = "tomato";
             blocksmsg.innerHTML = "初期規定ブロック数(250,000ブロック)以上です。新規登録の場合は「規定ブロック数を超える明確な理由」が必要です。";
         } else if (Math.round(blocks) == 0) {
-            result.style.color = "none";
+            result.style.color = "black";
             blocksmsg.innerHTML = "範囲情報を入力してください。";
         } else {
-            result.style.color = "none";
+            result.style.color = "black";
             blocksmsg.innerHTML = "特に問題はありません。";
         }
     });
