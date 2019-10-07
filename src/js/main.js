@@ -150,9 +150,16 @@
         let oldx = points.x[0];
         let oldz = points.z[0];
         let changed = null; // 変化したのがXかZか。最初はnull、XまたはZを代入
-        for (let i = 1; i < points.x.length; i++) {
-            let x = points.x[i];
-            let z = points.z[i];
+        for (let i = 1; i <= points.x.length; i++) {
+            let x;
+            let z;
+            if (i == points.x.length) {
+                x = points.x[0];
+                z = points.z[0];
+            } else {
+                x = points.x[i];
+                z = points.z[i];
+            }
             if (changed == null) {
                 // 最初だけ動作
                 if (oldx != x && oldz == z) {
