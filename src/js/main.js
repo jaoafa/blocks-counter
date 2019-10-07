@@ -44,6 +44,12 @@
         result.innerText = blocks + " Blocks";
 
         var blocksmsg = document.getElementById('blocksMessage');
+        if (!checkBlocks(points)) {
+            result.style.color = "crimson";
+            blocksmsg.innerHTML = "範囲指定が不適切です。時計回りまたは反時計回りに指定してください。";
+            return;
+        }
+
         if (Math.round(blocks) !== blocks) {
             result.style.color = "orange";
             blocksmsg.innerHTML = "ブロック数が不適切(整数でない)です。範囲が正確に指定されていない可能性があります。";
@@ -133,5 +139,58 @@
             blocks = size + (side / 2) + 1;
         }
         return blocks;
+    }
+
+    /**
+     * 座標情報が妥当(時計回り・反時計回り)かをチェック
+     * @param   {string}  座標情報
+     * @return  {boolean}  妥当か
+     */
+    function checkBlocks(points) {
+        let oldx = points.x[0];
+        let oldz = points.z[0];
+        let changed = null; // 変化したのがXかZか。最初はnull、XまたはZを代入
+        for (let i = 1; i < points.x.length; i++) {
+            let x = points.x[i];
+            let z = points.z[i];
+            if (changed == null) {
+                // 最初だけ動作
+                if (oldx != x && oldz == z) {
+                    // Xが変わってZは変わっていない
+                    console.log("[checkBlocks|FIRST] changed X, not changed Z | " + x + " " + z + " | " + oldx + " " + oldz);
+                    oldx = x;
+                    changed = "X";
+                } else if (oldx == x && oldz != z) {
+                    // Xが変わっていなくてZは変わっている
+                    console.log("[checkBlocks|FIRST] not changed X, changed Z | " + x + " " + z + " | " + oldx + " " + oldz);
+                    oldz = z;
+                    changed = "Z";
+                } else {
+                    // XとZ両方変わっているもしくは両方変わっていない
+                    console.log("[checkBlocks|FIRST] changed X, changed Z or... | " + x + " " + z + " | " + oldx + " " + oldz);
+                    return false;
+                }
+            } else {
+                // 最初以外動作
+                if (changed == "Z" && oldx != x && oldz == z) {
+                    // 前回Zが変わっていて、Xが変わってZは変わっていない
+                    console.log("[checkBlocks] changed X, not changed Z | " + x + " " + z + " | " + oldx + " " + oldz);
+                    oldx = x;
+                    changed = "X";
+                } else if (changed == "X" && oldx == x && oldz != z) {
+                    // 前回Xが変わっていて、Xが変わっていなくてZは変わっている
+                    console.log("[checkBlocks] not changed X, changed Z | " + x + " " + z + " | " + oldx + " " + oldz);
+                    oldz = z;
+                    changed = "Z";
+                } else {
+                    // XとZ両方変わっているもしくは両方変わっていない
+                    // またはX,Zが連続して変わった
+                    console.log("[checkBlocks|FIRST] changed X, changed Z or... | " + x + " " + z + " | " + oldx + " " + oldz);
+                    return false;
+                }
+            }
+        }
+        console.log("[checkBlocks] allow");
+        return true;
     }
 })();
